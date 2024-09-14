@@ -1,5 +1,7 @@
 import nodemailer from "nodemailer";
 import dotenv from 'dotenv';
+
+
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
@@ -20,9 +22,8 @@ class Mail {
     };
   }
 
-  // Set the company name in the "from" field
   setCompanyName(name) {
-    this.mailOptions.from.name = name;  // Corrected typo from "form" to "from"
+    this.mailOptions.from.name = name;
   }
 
   setTo(receiver) {
@@ -42,7 +43,6 @@ class Mail {
   }
 
   send() {
-    // Corrected the reference to "this.mailOptions"
     transporter.sendMail(this.mailOptions, (err, info) => {
       if (err) {
         console.log(err);

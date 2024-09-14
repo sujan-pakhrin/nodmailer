@@ -14,6 +14,9 @@ app.get("/", (req, res) => {
   mail.setText("hello from sujan Tamang");
   mail.send();
 });
+app.post('/posts', (req, res) => {
+
+})
 
 const Port = process.env.PORT;
 app.listen(Port, () => {
