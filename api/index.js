@@ -1,37 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
+import Mail from "./mail.js";
 
 dotenv.config();
 
-const transporter=nodemailer.createTransport({
-    service:'gmail',
-    host:'smtp.gmail.com',
-    secure: false,
-    port:587,
-    auth:{
-        user:process.env.EMAIL,
-        pass:process.env.PASSWORD
-    }
-})
-
 const app = express();
-app.get('/',(req,res)=>{
-    res.send("hello world!");
-    const mailOptions={
-        from:process.env.EMAIL,
-        to:process.env.TO_EMAIL,
-        subject:"Sending Email using node.js",
-        text:"that was easy!"
-    }
-    transporter.sendMail(mailOptions,(err,info)=>{
-        if(err){
-            console.log(err)
-        }else{
-            console.log("ëmail sent" +info.response)
-        }
-    })
-})
+app.get("/", (req, res) => {
+  res.send("hello world!");
+  const mail = new Mail();
+  mail.setTo(process.env.TO_EMAIL);
+  mail.setSubject("Subject");
+  mail.setText("hello from sujan Tamang");
+  mail.send();
+});
 
 const Port = process.env.PORT;
 app.listen(Port, () => {
